@@ -32,7 +32,12 @@ const reditectUrl = async (req,res) => {
     );
     res.redirect(doc.redirectUrl);
     // console.log(rec, ' -------- rec ------ '); 
-
 }
 
-module.exports = {createShortUrl, reditectUrl}
+const getAnalytics = async (req,res) => {
+    const shortId = req.params.id;
+    if(!shortId) return res.status(400).json({message: 'please send url'});
+    const doc = await Url.findOne({shortId});
+    return res.json({totalClicks: doc.visitHistory.length, analytics: doc.visitHistory});
+}
+module.exports = {createShortUrl, reditectUrl, getAnalytics}
