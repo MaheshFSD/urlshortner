@@ -40,4 +40,7 @@ const getAnalytics = async (req,res) => {
     const doc = await Url.findOne({shortId});
     return res.json({totalClicks: doc.visitHistory.length, analytics: doc.visitHistory});
 }
-module.exports = {createShortUrl, reditectUrl, getAnalytics}
+const getHome = (req,res) => {
+    res.end('<h1>Hello Hello... From Server...');
+}
+module.exports = {createShortUrl, reditectUrl, getAnalytics, getHome}

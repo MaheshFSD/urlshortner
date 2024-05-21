@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {createShortUrl, reditectUrl, getAnalytics} = require('../controller/url.controller');
+const {createShortUrl, reditectUrl, getAnalytics, staticRoute} = require('../controller/url.controller');
 
 router.post('/', createShortUrl);
 router.get('/:id', reditectUrl);
