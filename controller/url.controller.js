@@ -40,7 +40,19 @@ const getAnalytics = async (req,res) => {
     const doc = await Url.findOne({shortId});
     return res.json({totalClicks: doc.visitHistory.length, analytics: doc.visitHistory});
 }
-const getHome = (req,res) => {
-    res.end('<h1>Hello Hello... From Server...');
+// const getHome = (req,res) => {
+//     res.end('<h1>Hello Hello... From Server...');
+// }
+const getHome = async (req,res) => {
+    res.render('home');
 }
-module.exports = {createShortUrl, reditectUrl, getAnalytics, getHome}
+
+const getAllIds = async (req,res) => {
+    const allUrls = await Url.find({});
+    console.log(allUrls, ' ---------- all urls ------ ');
+    res.render('home', {
+        urls: allUrls,
+    });
+}
+
+module.exports = {createShortUrl, reditectUrl, getAnalytics, getHome, getAllIds}

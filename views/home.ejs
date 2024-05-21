@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h4>Server side Rendering...</h4>
+    <h2>Url Shortner...</h2>
+    <% if (locals.urls) { %>
+        <% urls?.forEach(url => { %>
+            <ol>
+                <li><%= url.shortId %></li>
+            </ol>
+        <% }) %>
+    <% } %>
+    <form method="POST" action="/url"></form>
+</body>
+</html>
