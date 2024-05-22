@@ -22,6 +22,9 @@ app.set('views', path.resolve('./views'));
 connectToMongoDB(process.env.MONGODBURL)
 .then(() => {
     console.log('DB CONNECTED')
-    app.listen(PORT, () => console.log('Server started at - ',PORT));
+    const server = app.listen(PORT, function () {
+        
+        console.log('Server started at - ',PORT, server.address().address, server.address().port);
+    });
 })
 .catch(err => console.log(err));
