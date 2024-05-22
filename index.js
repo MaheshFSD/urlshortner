@@ -10,6 +10,7 @@ const PORT = 8001;
 const app = express();
 dotenv.config();
 
+app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 app.use('/url', urlRoute);
 app.use('/', staticRoute);

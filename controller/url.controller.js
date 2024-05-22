@@ -12,7 +12,7 @@ const createShortUrl = async (req, res) => {
             redirectUrl,
             visitHistory: []
         })
-        res.status(201).json({id: shortID});
+        res.status(201).render('home', {id: shortID});
     } catch (error) {
         res.status(500).json({message: error.message});
     }
@@ -38,7 +38,8 @@ const getAnalytics = async (req,res) => {
     const shortId = req.params.id;
     if(!shortId) return res.status(400).json({message: 'please send url'});
     const doc = await Url.findOne({shortId});
-    return res.json({totalClicks: doc.visitHistory.length, analytics: doc.visitHistory});
+    // return res.json({totalClicks: doc.visitHistory.length, analytics: doc.visitHistory}); // change this line and render home ejs and also add a table to it...
+    return res.render('home', {analytics: doc});
 }
 // const getHome = (req,res) => {
 //     res.end('<h1>Hello Hello... From Server...');

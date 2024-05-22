@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        table, th, td {
+            border: 1px solid grey;
+        }
+    </style>
 </head>
 <body>
     <h4>Server side Rendering...</h4>
@@ -15,6 +20,32 @@
             </ol>
         <% }) %>
     <% } %>
-    <form method="POST" action="/url"></form>
+    <form method="POST" action="/url">
+        <label>Please enter Email: </label>
+        <input type="text" placeholder="www.example.com" name="url"/>
+        <button type="submit">Generate</button>
+    </form>
+    <% if (locals.id) { %>
+        <p>Short url generated -  http://localhost:8001/url/<%= id %></p>
+    <% } %>
+    <h2>Table of analytics</h2>
+    <% if (locals.analytics) { %>
+        <table>
+            <thead>
+                <tr>
+                    <th>ShortID</th>
+                    <th>Redirect Url</th>
+                    <th>Number of Clicks</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><%= analytics.shortId %></td>
+                    <td><%= analytics.redirectUrl %></td>
+                    <td><%= analytics.visitHistory.length %></td>
+                </tr>
+            </tbody>
+        </table>
+    <% } %>
 </body>
 </html>
