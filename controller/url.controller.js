@@ -56,4 +56,13 @@ const getAllIds = async (req,res) => {
     });
 }
 
-module.exports = {createShortUrl, reditectUrl, getAnalytics, getHome, getAllIds}
+const searchId = async (req,res) => {
+    const shortId = req.params.id;
+    if(!id) return res.render('home', {
+        message: 'Id Not found'
+    });
+    const rec = await Url.findOne({shortId});
+    res.render('home', {foundUrl: rec.redirectUrl});
+}
+
+module.exports = {createShortUrl, reditectUrl, getAnalytics, getHome, getAllIds, searchId}
