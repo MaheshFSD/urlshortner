@@ -50,7 +50,6 @@ const getHome = async (req,res) => {
 
 const getAllIds = async (req,res) => {
     const allUrls = await Url.find({});
-    console.log(allUrls, ' ---------- all urls ------ ');
     res.render('home', {
         urls: allUrls,
     });
