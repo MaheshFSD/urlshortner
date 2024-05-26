@@ -28,6 +28,27 @@
     <% if (locals.id) { %>
         <p>Short url generated -  http://localhost:8001/url/<%= id %></p>
     <% } %>
+    <% if (locals.allIndividualUrls) { %>
+        <h2>List of generated Urls</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ShortID</th>
+                    <th>Redirect Url</th>
+                    <th>Number of Clicks</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% allIndividualUrls.forEach(url => { %>
+                    <tr>
+                        <td><%= url.shortId %></td>
+                        <td><%= url.redirectUrl %></td>
+                        <td><%= url.visitHistory.length %></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    <% } %>
     <h2>Table of analytics</h2>
     <% if (locals.analytics) { %>
         <table>

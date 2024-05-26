@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const {createShortUrl, reditectUrl, getAnalytics, staticRoute} = require('../controller/url.controller');
+const {checkLoggedIn} = require('../middlewares/auth');
 
 router.post('/', createShortUrl);
 router.get('/:id', reditectUrl);

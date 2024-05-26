@@ -10,7 +10,8 @@ const createShortUrl = async (req, res) => {
         const urlObj = await Url.create({
             shortId: shortID,
             redirectUrl,
-            visitHistory: []
+            visitHistory: [],
+            createdBy: req.user._id
         })
         res.status(201).render('home', {id: shortID});
     } catch (error) {
@@ -45,7 +46,10 @@ const getAnalytics = async (req,res) => {
 //     res.end('<h1>Hello Hello... From Server...');
 // }
 const getHome = async (req,res) => {
-    res.render('home');
+    if(!req.user) return res.redirect('/login');
+    const userId = req.user._id;
+    const allIndividualUrls = await Url.find({createdBy: userId});
+    res.render('home',{allIndividualUrls});
 }
 
 const getAllIds = async (req,res) => {
