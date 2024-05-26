@@ -10,5 +10,13 @@ const handleUserSignup = async (req,res) => {
     });
     res.render('home');
 }
+const handleUserLogin = async (req, res) => {
+    const {email, password} = req.body;
+    const user = await User.findOne({email,password});
+    if(!user) return res.render('login',{
+        error: 'Invalid User Credentials'
+    });
 
-module.exports = {handleUserSignup}
+    res.redirect('/');
+}
+module.exports = {handleUserSignup, handleUserLogin}
