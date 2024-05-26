@@ -30,7 +30,7 @@ const reditectUrl = async (req,res) => {
         } 
     }
     );
-    res.redirect(doc.redirectUrl);
+    return res.redirect(doc.redirectUrl);
     // console.log(rec, ' -------- rec ------ '); 
 }
 
