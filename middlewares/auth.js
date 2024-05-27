@@ -5,6 +5,7 @@ const restrictToLoggedInUserOnly = (req,res,next) => {
     const userId = req.cookies?.uid;
     if(!userId) return res.redirect('/login');
     const user = getSessionIdUser(userId);
+    console.log(user, ' -------- user from jwt verify -------- ');
     if(!user) return res.redirect('/login');
     req.user = user;
     next();
