@@ -13,6 +13,9 @@ const handleUserSignup = async (req,res) => {
     res.render('home');
 }
 
+// sending token using cookies for only browser clients...
+
+
 // const handleUserLogin = async (req, res) => {
 //     const {email, password} = req.body;
 //     const user = await User.findOne({email,password});
@@ -25,15 +28,37 @@ const handleUserSignup = async (req,res) => {
 //     res.redirect('/');
 // }
 
+// jwt implementation ....
+// const handleUserLogin = async (req, res) => {
+//     const {email, password} = req.body;
+//     const user = await User.findOne({email,password});
+//     if(!user) return res.render('login',{
+//         error: 'Invalid User Credentials'
+//     });
+//     // const sessionId = uuidv4();
+//     const token = setSessionIdToUser(user);
+//     res.cookie('uid', token);
+//     res.redirect('/');
+// }
+
+
+
+
+
+// sending token in response.... for all clients.
 const handleUserLogin = async (req, res) => {
     const {email, password} = req.body;
     const user = await User.findOne({email,password});
     if(!user) return res.render('login',{
         error: 'Invalid User Credentials'
     });
-    // const sessionId = uuidv4();
+    const sessionId = uuidv4();
     const token = setSessionIdToUser(user);
-    res.cookie('uid', token);
-    res.redirect('/');
+    // res.cookie('uid', token);
+    res.json({token});
 }
+
+
+
+
 module.exports = {handleUserSignup, handleUserLogin}
