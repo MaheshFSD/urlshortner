@@ -50,7 +50,8 @@ const setSessionIdToUser = (user) => { // the name could be setUser
     // const token = jwt.sign(payload, secret)
     const token = jwt.sign({
         _id: user._id,
-        email: user.email
+        email: user.email,
+        role: user.role
     }, secret);
     return token;
 };

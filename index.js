@@ -6,9 +6,8 @@ const {connectToMongoDB} = require('./configs/connection');
 const urlRoute = require('./routes/url.route.js');
 const staticRoute  = require('./routes/static.route.js');
 const userRoute  = require('./routes/user.route');
-const {restrictToLoggedInUserOnly} = require('./middlewares/auth');
+const {restrictToLoggedInUserOnly, checkForAuthentication, restrictTo} = require('./middlewares/auth');
 const cookieParser = require('cookie-parser');
-
 const PORT = 8001;
 const app = express();
 dotenv.config();
@@ -16,7 +15,8 @@ dotenv.config();
 app.use(cookieParser());
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
-app.use('/url',restrictToLoggedInUserOnly, urlRoute);
+app.use(checkForAuthentication);
+app.use('/url',restrictTo(['ADMIN', 'NORMAL']), urlRoute);
 app.use('/', staticRoute);
 app.use('/user', userRoute);
 

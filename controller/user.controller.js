@@ -42,10 +42,6 @@ const handleUserSignup = async (req,res) => {
 //     res.redirect('/');
 // }
 
-
-
-
-
 // sending token in response.... for all clients.
 const handleUserLogin = async (req, res) => {
     const {email, password} = req.body;
@@ -58,8 +54,5 @@ const handleUserLogin = async (req, res) => {
     // res.cookie('uid', token);
     res.json({token});
 }
-
-
-
 
 module.exports = {handleUserSignup, handleUserLogin}
