@@ -8,7 +8,8 @@ const handleUserSignup = async (req,res) => {
     await User.create({
         name,
         email,
-        password
+        password,
+        role: 'ADMIN'
     });
     res.render('home');
 }

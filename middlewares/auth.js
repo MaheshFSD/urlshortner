@@ -40,19 +40,28 @@ const checkLoggedIn = (req,res,next) => {
 }
 
 
-// // refactoring the above code to single func
-// const checkForAuthentication = (req,res,next) => {
-//     req.user = null;
-//     const authorizationHeaderValue = req.headers['authorization'];
-//     if(!authorizationHeaderValue || !authorizationHeaderValue.startsWith('Bearer')) 
-//     return res.redirect('/login');
-//     const token = authorizationHeaderValue.split(' ')[1];
-//     if(!token) return res.redirect('/login');
-//     const user = getSessionIdUser(token);
-//     if(!user) return res.redirect('/login');
-//     req.user = user;
-//     next();
-// }
+// refactoring the above code to single func and also writing authorization code
+const checkForAuthentication = (req,res,next) => {
+    req.user = null;
+    const authorizationHeaderValue = req.headers['authorization'];
+    if(!authorizationHeaderValue || !authorizationHeaderValue.startsWith('Bearer')) 
+    // return res.redirect('/login');
+    return next();
+    const token = authorizationHeaderValue.split(' ')[1];
+    // if(!token) return res.redirect('/login');
+    if(!token) return next();
+    const user = getSessionIdUser(token);
+    // if(!user) return res.redirect('/login');
+    if(!user) return next();
+    req.user = user;
+    next();
+}
 
-
-module.exports = {restrictToLoggedInUserOnly, checkLoggedIn};
+const restrictTo = (roles = []) => {
+    return function(req,res,next) {
+        if(!req.user) return res.redirect('/login');
+        if(!roles.includes(req.user?.role)) return res.end('Un Authorized user');
+        next();
+    }
+}
+module.exports = {restrictToLoggedInUserOnly, checkLoggedIn, checkForAuthentication, restrictTo};
